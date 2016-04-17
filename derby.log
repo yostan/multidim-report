@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Tue Mar 22 14:33:47 CST 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0153-9d07-7d8c-000000c0f6e8 
+on database directory E:\shmai\scrapygithub\prj\multidim-report\metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@2f4124 
+Loaded from file:/D:/maven/dep/org/apache/derby/derby/10.10.2.0/derby-10.10.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_51-b16
+user.dir=E:\shmai\scrapygithub\prj\multidim-report
+os.name=Windows 7
+os.arch=x86
+os.version=6.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
