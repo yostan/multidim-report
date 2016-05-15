@@ -3,6 +3,8 @@ package com.yx.report.udf
 
 import org.apache.hadoop.hive.ql.exec.UDF
 
+import scala.util.{Failure, Success, Try}
+
 
 /**
  * Created by naonao on 2016/4/13
@@ -18,6 +20,11 @@ class ChangeMoney extends UDF {
       v_money = v_money.replace("(", "")
       v_money = v_money.replace(")", "")
       v_money = "-" + v_money
+    }else{
+      v_money = Try(v_money.toInt) match {
+        case Success(n) => n.toString
+        case Failure(_) => "0.01"
+      }
     }
     v_money = v_money.replace(",", "")
     v_money
