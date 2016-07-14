@@ -40,9 +40,17 @@ object TransactionOps {
         case c if c.startsWith("INSERT INTO") =>
           val index1 = t._2.indexOf('(')
           val index2 = t._2.indexOf(')')
-          val s1 = t._2.substring(0, index1)
-          val s2 = t._2.substring(index2 + 1)
-          val s3 = s1.toUpperCase.replace("INSERT INTO", "INSERT INTO TABLE")
+          val s1 = t._2.substring(0, index1).toUpperCase
+          val s2 = t._2.substring(index2 + 1).toUpperCase
+          val s3 = s1.replace("INSERT INTO", "INSERT INTO TABLE")
+          def joinTrans(s: String): String = {
+            if(s.contains("LEFT JOIN") || s.contains("INNER JOIN") || s.contains("RIGHT JOIN")){
+              val reg = """  """
+
+            }
+            return null
+          }
+
           val s = s3 + " " + s2
           s
         case _ =>   //truncate

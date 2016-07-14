@@ -94,10 +94,11 @@ object SQLSyntax {
 //      .save(args(1))
 
 //    val cmd = Seq("hdfs", "dfs", "-getmerge", args(0), args(1))
+
+
     val cmd = Seq("hive", "--database", "oracletest", "-e", sqlll)
 //    val exitCode = cmd.!
 //    println(s"exit-code: $exitCode")
-
     val stat = (cmd #> new File(args(1))).!
     println(s"status: $stat")
 

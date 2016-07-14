@@ -1,0 +1,25 @@
+#! /usr/bin/expect
+
+set timeout 10
+
+set sqll [lindex $argv 0]
+set tabname [lindex $argv 1]
+
+log_user 0
+spawn beeline
+expect "*beeline>"
+send "!connect jdbc:hive2://132.121.125.10:10000/ods2hdfs\r"
+expect "Enter username for*"
+send "ods2hdfs\r"
+expect "Enter password for*"
+send "ods2hdfs123\r"
+expect "*0: jdbc:hive2://132.121.125.10:10000/ods2hdfs>"
+send "drop table $tabname;\r"
+expect "*0: jdbc:hive2://132.121.125.10:10000/ods2hdfs>"
+send "$sqll\r"
+expect {
+"*seconds)*" {send "!quit;\r"; puts "yes"}
+"*Error*" {send "!quit;\r"; puts "no"}
+eof
+}
+exit
