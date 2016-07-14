@@ -6,6 +6,7 @@ set sqll [lindex $argv 0]
 set tabname [lindex $argv 1]
 
 log_user 0
+
 spawn beeline
 expect "*beeline>"
 send "!connect jdbc:hive2://132.121.125.10:10000/ods2hdfs\r"
