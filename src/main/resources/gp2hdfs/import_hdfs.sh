@@ -4,13 +4,14 @@
 #tablename=summary_gz.test
 #out_gpsql_path=/home/ods/sh/tmp/${tablename}_gp.sql
 
-if [ $# != 1 ];then
-  echo "Usage: $0 table_name"
-  echo "example: $0 summary_gz.test"
+if [ $# != 2 ];then
+  echo "Usage: $0 table_name importpath"
+  echo "example: $0 summary_gz.test /data/ods_data"
   exit 1
 fi
 
 tablename=$1
+importpath=$2
 
 mypathh="$(cd $(dirname ${0});pwd)"
 
@@ -31,18 +32,20 @@ fi
 echo "tabname3: $tabname3"
 echo "tabname4: $tabname4"
 
-#hdfs_path=/data/ods_data/${tabname3}/${tabname4}/${tabname1}
-#/ods2hdfs/gpbackup/GZ/test/summary_gz
-#hdfs_path=/ods2hdfs/gpbackup/${tabname3}/${tabname4}/${tabname1}
-hdfs_path_prefix=/ods2hdfs/ods2hdfs/gpbackup/${tabname3}/201604/${tabname1}
-hdfs_path=/ods2hdfs/ods2hdfs/gpbackup/${tabname3}/201604/${tabname1}/dat
+if [ "$tabname4" = "" ];then
+tabname4="201604"
+fi
+
+#hdfs_path=/ods2hdfs/ods2hdfs/gpbackup/GZ/201604/summary_gz/dat
+hdfs_path_prefix=/ods2hdfs/ods2hdfs/gpbackup/${tabname3}/${tabname4}/${tabname1}
+hdfs_path=$hdfs_path_prefix/dat
 hdfs_sql_path=$hdfs_path_prefix/sql
 echo "hdfs_path: $hdfs_path"
 echo "hdfs_path: $hdfs_sql_path"
 
-out_txtgz_path=/data/ods_data/${tabname3}/output/${tabname2}.txt.gz
+out_txtgz_path=${importpath}/${tabname3}/output/${tabname2}.txt.gz
 #out_gpsql_path=/home/ods/sh/tmp/${tablename}_gp.sql
-out_gpsql_path=/data/ods_data/${tabname3}/output/${tablename}_gp.sql
+out_gpsql_path=${importpath}/${tabname3}/output/${tablename}_gp.sql
 echo "out_txtgz_path: $out_txtgz_path"
 echo "out_gpsql_path: $out_gpsql_path"
 
@@ -88,3 +91,4 @@ hdfs_txtgz_size=`hdfs dfs -du $out_hdfs_txtgz_path |awk -F ' ' '{print $1}'`
 hdfs_gpsql_size=`hdfs dfs -du $out_hdfs_gpsql_path |awk -F ' ' '{print $1}'`
 echo "hdfs_txtgz_size: $hdfs_txtgz_size"
 echo "hdfs_gpsql_size: $hdfs_gpsql_size"
+
